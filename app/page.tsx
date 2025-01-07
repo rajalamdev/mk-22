@@ -14,36 +14,6 @@ import Countdown from "react-countdown";
 import { useEffect, useState } from "react";
 
 export default function Home() {
-  const targetDate = new Date("2025-02-22T00:00:00"); // Set target date
-  const [timeLeft, setTimeLeft] = useState(targetDate.getTime() - Date.now());
-  const [isEventStarted, setIsEventStarted] = useState(false);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      const now = Date.now();
-      const distance = targetDate.getTime() - now;
-
-      if (distance < 0) {
-        clearInterval(timer);
-        setIsEventStarted(true);
-        // Push notification logic
-        if (Notification.permission === "granted") {
-          new Notification("Acara telah dimulai!");
-        } else if (Notification.permission !== "denied") {
-          Notification.requestPermission().then(permission => {
-            if (permission === "granted") {
-              new Notification("Acara telah dimulai!");
-            }
-          });
-        }
-      } else {
-        setTimeLeft(distance);
-      }
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, [targetDate]);
-
   const getTimeComponents = (time: any) => {
     const days = String(Math.floor(time / (1000 * 60 * 60 * 24))).padStart(2, '0');
     const hours = String(Math.floor((time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
@@ -51,9 +21,31 @@ export default function Home() {
     const seconds = String(Math.floor((time % (1000 * 60)) / 1000)).padStart(2, '0');
     return { days, hours, minutes, seconds };
   };
+  const targetDate = new Date("2025-02-22T00:00:00");
+  const [timeLeft, setTimeLeft] = useState<number | null>(null);
+  const [isEventStarted, setIsEventStarted] = useState(false);
 
-  const { days, hours, minutes, seconds } = getTimeComponents(timeLeft);
+  useEffect(() => {
+    const updateTimeLeft = () => {
+      const now = Date.now();
+      const distance = targetDate.getTime() - now;
 
+      if (distance < 0) {
+        setIsEventStarted(true);
+        setTimeLeft(0);
+      } else {
+        setTimeLeft(distance);
+      }
+    };
+
+    updateTimeLeft(); // Set initial time left
+    const timer = setInterval(updateTimeLeft, 1000);
+
+    return () => clearInterval(timer); // Cleanup on unmount
+  }, [targetDate]); // Only run when targetDate changes
+
+  // Ensure consistent initial state
+  const { days, hours, minutes, seconds } = timeLeft !== null ? getTimeComponents(timeLeft) : { days: '00', hours: '00', minutes: '00', seconds: '00' };
   return (
     <div className="bg-white max-w-[440px] min-h-screen mx-auto snap-y">
       <section
