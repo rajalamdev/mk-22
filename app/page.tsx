@@ -55,6 +55,7 @@ export default function Home() {
         <h1 className="mt-8">
           <Image src={"/mk22.png"} width={200} height={200} alt="MK 22" />
         </h1>
+        <p className="text-gray-300 px-10 max-w-60 font-bebasNeue">Malam Keakrabanan Informatika 2022</p>
         <div className="-rotate-[10deg] scale-[1.15] -mt-10">
           <Image src={"/line.png"} width={600} height={600} alt="MK 22" />
         </div>
@@ -67,9 +68,9 @@ export default function Home() {
             </div>
             <div className="animate-float">
               <div className="bg-white max-w-32 text-black text-xs backdrop-blur-sm p-2 rounded-lg mb-2 absolute w-max -top-14 -left-8">
-                <div className="absolute left-[6] -bottom-[10] text-white -rotate-[20deg]">
+                {/* <div className="absolute left-[6] -bottom-[10] text-white -rotate-[20deg]">
                   ▼
-                </div>
+                </div> */}
                 <TypeAnimation
                   sequence={[
                     // Same substring at the start will only be typed out once, initially
@@ -197,7 +198,7 @@ export default function Home() {
                 />
               </div>
               <div className="flex justify-center pt-10">
-                <a className="relative" href="https://wa.me/6289631645395?text=Halo, Saya Minat Dengan Merch nya">
+                <a className="relative" href="https://wa.me/6282122388708?text=Halo, Saya Minat Dengan Merch nya">
                     <span className="absolute top-0 left-0 mt-1 ml-1 h-full w-full rounded bg-black"></span>
                     <span className="fold-bold relative inline-block h-full w-full rounded border-2 border-black bg-white px-3 py-1 text-base font-bold text-black transition duration-100 hover:bg-red-500 hover:text-white">Beli Sekarang</span>
                 </a>
