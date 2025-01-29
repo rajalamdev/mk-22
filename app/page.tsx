@@ -49,8 +49,8 @@ export default function Home() {
   return (
     <div className="bg-white max-w-[440px] min-h-screen mx-auto snap-y">
       <section
-        className="w-full flex overflow-x-hidden flex-col h-screen bg-cover bg-center max-w-full"
-        style={{ backgroundImage: `url("/hero-2.png")` }}
+        className="w-full flex overflow-x-hidden flex-col bg-cover bg-center max-w-full"
+        style={{ backgroundImage: `url("/hero-2.png")`, height: "100dvh"}}
       >
         <h1 className="mt-8">
           <Image src={"/mk22.png"} width={200} height={200} alt="MK 22" />
